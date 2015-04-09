@@ -68,6 +68,15 @@ public class Adresse {
         this.localisation = localisation;
     }
 
+    public Adresse(int numero, String codePostal, String rue, String ville) {
+        this.numero = numero;
+        this.codePostal = codePostal;
+        this.rue = rue;
+        this.ville = ville;
+    }
+
+    
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

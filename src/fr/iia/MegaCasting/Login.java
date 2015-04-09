@@ -174,7 +174,7 @@ public class Login extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
-        String sql = "SELECT * FROM compte WHERE identifiant = ? AND mdp = ?";
+        String sql = "SELECT * FROM compte WHERE login = ? AND password = ?";
         try {
             pst = cnx.prepareStatement(sql);
             pst.setString(1, loginTextField.getText());

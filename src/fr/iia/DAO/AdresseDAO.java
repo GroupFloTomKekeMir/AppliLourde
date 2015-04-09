@@ -141,16 +141,16 @@ public class AdresseDAO {
         try{
 
             stmt = cnx.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT numero, rue, code_postal, ville, localisation FROM adresse WHERE id_adr = " + id);
+            ResultSet rs = stmt.executeQuery("SELECT numero, rue, code_postal, ville FROM adresse WHERE id_adr = " + id);
 
             if(rs.next()){
                 int numero = rs.getInt("numero");
                 String rue = rs.getString("rue");
                 String codePostal = rs.getString("code_postal");
                 String ville = rs.getString("ville");
-                String localisation = rs.getString("localisation");
+                //String localisation = rs.getString("localisation");
 
-                adresse = new Adresse(numero, codePostal, rue, ville, localisation);
+                adresse = new Adresse(numero, codePostal, rue, ville);
                 adresse.setId(id);
             }	
 
