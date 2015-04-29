@@ -186,6 +186,9 @@ public class AnnonceursDAO {
         try {
             stmt = cnx.createStatement();
             stmt.executeUpdate("DELETE FROM evenement WHERE id_annonceur = " + annonceur.getId());
+            stmt.executeUpdate("UPDATE annonceur SET id_adresse = null WHERE id_annonceur ="+annonceur.getId());
+            stmt.executeUpdate("DELETE FROM adresse WHERE id_adr = " + annonceur.getAdresse().getId());
+            stmt.executeUpdate("DELETE FROM offre WHERE id_annonceur = " + annonceur.getId());
             stmt.executeUpdate("DELETE FROM annonceur WHERE id_annonceur = " + annonceur.getId());
 
             AdresseDAO.supprimer(cnx, annonceur.getAdresse());
