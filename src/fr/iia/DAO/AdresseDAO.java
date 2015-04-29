@@ -3,7 +3,6 @@ package fr.iia.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -12,36 +11,38 @@ import java.util.ArrayList;
 import fr.iia.Class.Adresse;
 
 public class AdresseDAO {
-	
-    public static void creer(Connection cnx, Adresse adr){
+
+    public static void creer(Connection cnx, Adresse adr) {
 
         PreparedStatement pstmt = null;
-        try{
+        try {
             pstmt = cnx.prepareStatement("INSERT INTO adresse"
-                + " (numero, rue, code_postal, ville, localisation)"
-                + " VALUES (?, ?, ?, ?, ?)");
+                    + " (numero, rue, code_postal, ville,latitude,longitude)"
+                    + " VALUES (?, ?, ?, ?,?,?)");
 
-            pstmt.setInt(1, adr.getNumero() );
+            pstmt.setInt(1, adr.getNumero());
             pstmt.setString(2, adr.getRue());
             pstmt.setString(3, adr.getCodePostal());
-            pstmt.setString(4, adr.getVille() );
-            pstmt.setString(5, adr.getLocalisation());
+            pstmt.setString(4, adr.getVille());
+            pstmt.setString(5, adr.getLatitude());
+            pstmt.setString(6, adr.getLongitude());
+            //  pstmt.setString(5, adr.getLocalisation());
 
             pstmt.executeUpdate();
 
             ResultSet rs = pstmt.executeQuery("SELECT MAX(id_adr) FROM adresse");
-            if(rs.next()){
+            if (rs.next()) {
                 int id = rs.getInt(1);
                 adr.setId(id);
             }
 
             System.out.println("Création réussie.");
 
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Création échouée.");
-        }finally{
-            if(pstmt != null){
+        } finally {
+            if (pstmt != null) {
                 try {
                     pstmt.close();
                 } catch (SQLException e) {
@@ -49,82 +50,91 @@ public class AdresseDAO {
                 }
             }
         }
-    }	
+    }
 
-    public static void modifier(Connection cnx, Adresse adr){
+    public static void modifier(Connection cnx, Adresse adr) {
 
-        Statement stmt = null;
-        try{
+        PreparedStatement pstmt = null;
+        try {
 
-            stmt = cnx.createStatement();
-            stmt.executeUpdate("UPDATE adresse "
-                    + "SET numero = " + adr.getNumero() + ", code_postal = " + adr.getCodePostal() + ", rue = '" + adr.getRue() + "', ville = '" + adr.getVille() + "', localisation = '" + adr.getLocalisation() + "' "
-                    + "WHERE id_adr = " + adr.getId());
+//            stmt.executeUpdate("UPDATE adresse "
+//                    + "SET numero = " + adr.getNumero() + ", code_postal = " + adr.getCodePostal() + ", rue = '" + adr.getRue() + "', ville = '" + adr.getVille()+"'"
+//                    + "WHERE id_adr = " + adr.getId());
+            pstmt = cnx.prepareStatement("UPDATE `adresse` SET `numero`=?,`code_postal`=?,`rue`=?,`ville`=?,`latitude`=?,`longitude`= ? WHERE  id_adr = ?");
+
+            pstmt.setInt(1, adr.getNumero());
+            pstmt.setString(2, adr.getCodePostal());
+            pstmt.setString(3, adr.getRue());
+            pstmt.setString(4, adr.getVille());
+            pstmt.setString(5, adr.getLatitude());
+            pstmt.setString(6, adr.getLongitude());
+            pstmt.setInt(7, adr.getId());
+
+            pstmt.executeUpdate();
+
             System.out.println("Modification réussie.");
 
-
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Modification échouée.");
-        }finally{
-            if(stmt != null){
+        } finally {
+            if (pstmt != null) {
                 try {
-                    stmt.close();
+                    pstmt.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
-        }		
+        }
     }
 
-    public static void supprimer(Connection cnx, Adresse adr){
+    public static void supprimer(Connection cnx, Adresse adr) {
         Statement stmt = null;
-        try{
+        try {
 
             stmt = cnx.createStatement();
             stmt.executeUpdate("DELETE From adresse where id_adr = " + adr.getId());
 
-            System.out.println("Suppression réussie.");	
-        }catch(Exception ex){
+            System.out.println("Suppression réussie.");
+        } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Suppression échouée.");
-        }finally{
-            if(stmt != null){
+        } finally {
+            if (stmt != null) {
                 try {
                     stmt.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
-        }		
+        }
     }
 
-
-    public static ArrayList<Adresse> lister(Connection cnx){
+    public static ArrayList<Adresse> lister(Connection cnx) {
         ArrayList<Adresse> ListAdresse = new ArrayList();
         Statement stmt = null;
-        try{
+        try {
 
             stmt = cnx.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT id_adr, numero, rue, code_postal, ville, localisation FROM adresse");
+            ResultSet rs = stmt.executeQuery("SELECT id_adr, numero, rue, code_postal, ville FROM adresse");
 
-            while(rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt(1);
                 int numero = rs.getInt(2);
                 String rue = rs.getString(3);
                 String codePostal = rs.getString(4);
                 String ville = rs.getString(5);
-                String localisation = rs.getString(6);
+                // String localisation = rs.getString(6);
 
-                Adresse adrResult = new Adresse(numero, codePostal, rue, ville, localisation);
+                Adresse adrResult = new Adresse(numero, codePostal, rue, ville);
                 adrResult.setNumero(numero);
                 adrResult.setId(id);
-            }	
-        }catch(Exception ex){
+            }
+        } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Echec lister");
-        }finally{
-            if(stmt != null){
+        } finally {
+            if (stmt != null) {
                 try {
                     stmt.close();
                 } catch (SQLException e) {
@@ -135,30 +145,32 @@ public class AdresseDAO {
         return ListAdresse;
     }
 
-    public static Adresse trouver(Connection cnx, int id){
+    public static Adresse trouver(Connection cnx, int id) {
         Adresse adresse = null;
         Statement stmt = null;
-        try{
+        try {
 
             stmt = cnx.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT numero, rue, code_postal, ville FROM adresse WHERE id_adr = " + id);
+            ResultSet rs = stmt.executeQuery("SELECT numero, rue, code_postal, ville, latitude,longitude FROM adresse WHERE id_adr = " + id);
 
-            if(rs.next()){
+            if (rs.next()) {
                 int numero = rs.getInt("numero");
                 String rue = rs.getString("rue");
                 String codePostal = rs.getString("code_postal");
                 String ville = rs.getString("ville");
+                String latitude = rs.getString("latitude");
+                String longitude = rs.getString("longitude");
                 //String localisation = rs.getString("localisation");
 
-                adresse = new Adresse(numero, codePostal, rue, ville);
+                adresse = new Adresse(numero, codePostal, rue, ville, latitude, longitude);
                 adresse.setId(id);
-            }	
+            }
 
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Echec trouver");
-        }finally{
-            if(stmt != null){
+        } finally {
+            if (stmt != null) {
                 try {
                     stmt.close();
                 } catch (SQLException e) {

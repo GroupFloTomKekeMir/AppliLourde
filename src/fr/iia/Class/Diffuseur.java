@@ -76,6 +76,23 @@ public class Diffuseur {
         this.Media = Media;
     }
 
+    public Diffuseur(String nom, String mail, String numeroTel, Adresse Adresse) {
+        this.nom = nom;
+        this.mail = mail;
+        this.numeroTel = numeroTel;
+        this.Adresse = Adresse;
+    }
+
+    public Diffuseur(int id, String nom, String mail, String numeroTel, Adresse Adresse) {
+        this.id = id;
+        this.nom = nom;
+        this.mail = mail;
+        this.numeroTel = numeroTel;
+        this.Adresse = Adresse;
+    }
+    
+    
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

@@ -3,6 +3,9 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="barreMenu">
+      <Properties>
+        <Property name="focusable" type="boolean" value="false"/>
+      </Properties>
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="fichierMenu">
           <Properties>
@@ -56,15 +59,60 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
-            <MenuItem class="javax.swing.JMenuItem" name="imprimerMenuFichier">
+            <Menu class="javax.swing.JMenu" name="ModifierMenuFichier">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Imprimer"/>
+                <Property name="text" type="java.lang.String" value="Modifier"/>
               </Properties>
-            </MenuItem>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="offreMenuModifier">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Offres"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="offreMenuModifierActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="annonceurMenuModifier">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Annonceurs"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="annonceurMenuModifierActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="diffuseurMenuModifier">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Diffuseurs"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="diffuseurMenuModifierActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="evenementMenuModifier">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Ev&#xe8;nements"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="evenementMenuModifierActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="musiqueMenuModifier">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Musiques"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="musiqueMenuModifierActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="quitterMenuFichier">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Quitter"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="quitterMenuFichierActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -342,7 +390,7 @@
             </Container>
             <Component class="javax.swing.JButton" name="updateOffre">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Mise &#xe0; jour"/>
+                <Property name="text" type="java.lang.String" value="Modifier"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateOffreActionPerformed"/>
@@ -404,7 +452,7 @@
                 <Component class="javax.swing.JTable" name="annonceurTab">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="9" rowCount="0">
+                      <Table columnCount="7" rowCount="0">
                         <Column editable="true" title="Nom" type="java.lang.String"/>
                         <Column editable="true" title="Email" type="java.lang.String"/>
                         <Column editable="true" title="Telephone" type="java.lang.String"/>
@@ -412,22 +460,10 @@
                         <Column editable="true" title="Nom rue" type="java.lang.String"/>
                         <Column editable="true" title="Code Postal" type="java.lang.Object"/>
                         <Column editable="true" title="Ville" type="java.lang.Object"/>
-                        <Column editable="true" title="Region" type="java.lang.Object"/>
-                        <Column editable="true" title="Logo" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
@@ -544,7 +580,7 @@
                 <Component class="javax.swing.JTable" name="diffuseurTab">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="9" rowCount="0">
+                      <Table columnCount="7" rowCount="0">
                         <Column editable="true" title="Nom" type="java.lang.String"/>
                         <Column editable="true" title="Email" type="java.lang.String"/>
                         <Column editable="true" title="Telephone" type="java.lang.String"/>
@@ -552,22 +588,10 @@
                         <Column editable="true" title="Nom rue" type="java.lang.String"/>
                         <Column editable="true" title="Code Postal" type="java.lang.Object"/>
                         <Column editable="true" title="Ville" type="java.lang.Object"/>
-                        <Column editable="true" title="Region" type="java.lang.Object"/>
-                        <Column editable="true" title="Logo" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                      <TableColumnModel selectionModel="0">
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
+                      <TableColumnModel selectionModel="1">
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
@@ -605,6 +629,7 @@
                         </Column>
                       </TableColumnModel>
                     </Property>
+                    <Property name="columnSelectionAllowed" type="boolean" value="true"/>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
@@ -668,7 +693,7 @@
                 <Component class="javax.swing.JTable" name="evenementTab">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="9" rowCount="0">
+                      <Table columnCount="8" rowCount="0">
                         <Column editable="true" title="Nom" type="java.lang.String"/>
                         <Column editable="true" title="Description" type="java.lang.String"/>
                         <Column editable="true" title="Date" type="java.lang.String"/>
@@ -676,17 +701,11 @@
                         <Column editable="true" title="Nom Rue" type="java.lang.String"/>
                         <Column editable="true" title="Code Postal" type="java.lang.String"/>
                         <Column editable="true" title="Ville" type="java.lang.String"/>
-                        <Column editable="true" title="Region" type="java.lang.String"/>
                         <Column editable="true" title="Annonceur" type="java.lang.String"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>

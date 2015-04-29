@@ -19,6 +19,7 @@ import fr.iia.DAO.DiffuseursDAO;
 import fr.iia.DAO.EvenementDAO;
 import fr.iia.DAO.MusiqueDAO;
 import fr.iia.DAO.OffreDAO;
+import java.awt.Dialog;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
@@ -33,22 +34,18 @@ import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
-
-
 /**
  *
  * @author Enzo
  */
 public class MegaCastingMain extends javax.swing.JFrame {
 
-
     Connection cnx = null;
     ResultSet rs = null;
     PreparedStatement pst = null;
+
     /**
-     * Creates new form MegaCastingMain
-     Sylvain Davenel
-     Florian Samson
+     * Creates new form MegaCastingMain Sylvain Davenel Florian Samson
      */
     public MegaCastingMain() {
         initComponents();
@@ -56,14 +53,14 @@ public class MegaCastingMain extends javax.swing.JFrame {
         cnx = JavaConnect.ConnectDB();
         refreshAllList();
     }
-    
-    private void offreListe(){
+
+    private void offreListe() {
         DefaultTableModel model = (DefaultTableModel) offreTab.getModel();
         model.setNumRows(0);
         OffreDAO offreDAO = new OffreDAO();
         Collection<Offre> offre = offreDAO.lister(cnx);
-        
-        for(Offre o : offre){
+
+        for (Offre o : offre) {
             model.addRow(new Object[]{
                 o.getTitre(),
                 o.getReference(),
@@ -76,21 +73,21 @@ public class MegaCastingMain extends javax.swing.JFrame {
                 o.getContrat(),
                 o.getAnnonceur(),
                 o.getDiffuseur(),
-                o.getMetier()              
+                o.getMetier()
             });
-        }     
+        }
     }
-    
-    public void paintComponent(Graphics g){
-    try {
-        Image img = ImageIO.read(new File("Fond.jpg"));
+
+    public void paintComponent(Graphics g) {
+        try {
+            Image img = ImageIO.read(new File("Fond.jpg"));
         //g.drawImage(img, 50, 50, this);
-        //Pour une image de fond
-        g.drawImage(img, 50, 50, this.getWidth(), this.getHeight(), this);
-    } catch (IOException e) {
-        e.printStackTrace();
-    }  
-  }        
+            //Pour une image de fond
+            g.drawImage(img, 50, 50, this.getWidth(), this.getHeight(), this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -138,7 +135,12 @@ public class MegaCastingMain extends javax.swing.JFrame {
         diffuseurMenuAjouter = new javax.swing.JMenuItem();
         evenementMenuAjouter = new javax.swing.JMenuItem();
         musiqueMenuAjouter = new javax.swing.JMenuItem();
-        imprimerMenuFichier = new javax.swing.JMenuItem();
+        ModifierMenuFichier = new javax.swing.JMenu();
+        offreMenuModifier = new javax.swing.JMenuItem();
+        annonceurMenuModifier = new javax.swing.JMenuItem();
+        diffuseurMenuModifier = new javax.swing.JMenuItem();
+        evenementMenuModifier = new javax.swing.JMenuItem();
+        musiqueMenuModifier = new javax.swing.JMenuItem();
         quitterMenuFichier = new javax.swing.JMenuItem();
         editionMenu = new javax.swing.JMenu();
         aideMenu = new javax.swing.JMenu();
@@ -207,7 +209,7 @@ public class MegaCastingMain extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(offreTab);
 
-        updateOffre.setText("Mise à jour");
+        updateOffre.setText("Modifier");
         updateOffre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateOffreActionPerformed(evt);
@@ -254,11 +256,11 @@ public class MegaCastingMain extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nom", "Email", "Telephone", "N° rue", "Nom rue", "Code Postal", "Ville", "Region", "Logo"
+                "Nom", "Email", "Telephone", "N° rue", "Nom rue", "Code Postal", "Ville"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -317,18 +319,20 @@ public class MegaCastingMain extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nom", "Email", "Telephone", "N° rue", "Nom rue", "Code Postal", "Ville", "Region", "Logo"
+                "Nom", "Email", "Telephone", "N° rue", "Nom rue", "Code Postal", "Ville"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
+        diffuseurTab.setColumnSelectionAllowed(true);
         jScrollPane6.setViewportView(diffuseurTab);
+        diffuseurTab.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         supprimerDiffuseurBouton.setText("Supprimer");
         supprimerDiffuseurBouton.addActionListener(new java.awt.event.ActionListener() {
@@ -366,11 +370,11 @@ public class MegaCastingMain extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nom", "Description", "Date", "N° Rue", "Nom Rue", "Code Postal", "Ville", "Region", "Annonceur"
+                "Nom", "Description", "Date", "N° Rue", "Nom Rue", "Code Postal", "Ville", "Annonceur"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -466,6 +470,8 @@ public class MegaCastingMain extends javax.swing.JFrame {
 
         page.addTab("Musiques", musiquePanel);
 
+        barreMenu.setFocusable(false);
+
         fichierMenu.setText("Fichier");
 
         ajouterMenuFichier.setText("Ajouter");
@@ -512,10 +518,56 @@ public class MegaCastingMain extends javax.swing.JFrame {
 
         fichierMenu.add(ajouterMenuFichier);
 
-        imprimerMenuFichier.setText("Imprimer");
-        fichierMenu.add(imprimerMenuFichier);
+        ModifierMenuFichier.setText("Modifier");
+
+        offreMenuModifier.setText("Offres");
+        offreMenuModifier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                offreMenuModifierActionPerformed(evt);
+            }
+        });
+        ModifierMenuFichier.add(offreMenuModifier);
+
+        annonceurMenuModifier.setText("Annonceurs");
+        annonceurMenuModifier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                annonceurMenuModifierActionPerformed(evt);
+            }
+        });
+        ModifierMenuFichier.add(annonceurMenuModifier);
+
+        diffuseurMenuModifier.setText("Diffuseurs");
+        diffuseurMenuModifier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                diffuseurMenuModifierActionPerformed(evt);
+            }
+        });
+        ModifierMenuFichier.add(diffuseurMenuModifier);
+
+        evenementMenuModifier.setText("Evènements");
+        evenementMenuModifier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                evenementMenuModifierActionPerformed(evt);
+            }
+        });
+        ModifierMenuFichier.add(evenementMenuModifier);
+
+        musiqueMenuModifier.setText("Musiques");
+        musiqueMenuModifier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                musiqueMenuModifierActionPerformed(evt);
+            }
+        });
+        ModifierMenuFichier.add(musiqueMenuModifier);
+
+        fichierMenu.add(ModifierMenuFichier);
 
         quitterMenuFichier.setText("Quitter");
+        quitterMenuFichier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quitterMenuFichierActionPerformed(evt);
+            }
+        });
         fichierMenu.add(quitterMenuFichier);
 
         barreMenu.add(fichierMenu);
@@ -563,15 +615,15 @@ public class MegaCastingMain extends javax.swing.JFrame {
         refreshListMusique();
         refreshListOffre();
     }
-    
+
     private void refreshListAnnonceur() {
         DefaultTableModel model = (DefaultTableModel) annonceurTab.getModel();
         model.setNumRows(0);
-        
+
         AnnonceursDAO annonceurDao = new AnnonceursDAO();
         Collection<Annonceur> annonceurs = AnnonceursDAO.lister(cnx);
-        
-        for(Annonceur a : annonceurs) {
+
+        for (Annonceur a : annonceurs) {
             model.addRow(new Object[]{
                 a.getNom(),
                 a.getMail(),
@@ -580,19 +632,19 @@ public class MegaCastingMain extends javax.swing.JFrame {
                 a.getAdresse().getRue(),
                 a.getAdresse().getCodePostal(),
                 a.getAdresse().getVille(),
-                a.getAdresse().getLocalisation()
+
             });
         }
     }
-    
+
     private void refreshListDiffuseur() {
         DefaultTableModel model = (DefaultTableModel) diffuseurTab.getModel();
         model.setNumRows(0);
-        
+
         DiffuseursDAO diffuseurDAO = new DiffuseursDAO();
         Collection<Diffuseur> diffuseurs = DiffuseursDAO.lister(cnx);
-        
-        for(Diffuseur d : diffuseurs) {
+
+        for (Diffuseur d : diffuseurs) {
             model.addRow(new Object[]{
                 d.getNom(),
                 d.getMail(),
@@ -601,19 +653,19 @@ public class MegaCastingMain extends javax.swing.JFrame {
                 d.getAdresse().getRue(),
                 d.getAdresse().getCodePostal(),
                 d.getAdresse().getVille(),
-                d.getAdresse().getLocalisation()
+
             });
         }
     }
-    
+
     private void refreshListOffre() {
         DefaultTableModel model = (DefaultTableModel) offreTab.getModel();
         model.setNumRows(0);
-        
+
         OffreDAO offreDAO = new OffreDAO();
         Collection<Offre> offres = OffreDAO.lister(cnx);
-        
-        for(Offre o : offres) {
+
+        for (Offre o : offres) {
             model.addRow(new Object[]{
                 o.getTitre(),
                 o.getReference(),
@@ -630,15 +682,15 @@ public class MegaCastingMain extends javax.swing.JFrame {
             });
         }
     }
-    
+
     private void refreshListEvenement() {
         DefaultTableModel model = (DefaultTableModel) evenementTab.getModel();
         model.setNumRows(0);
-        
+
         EvenementDAO evenementDAO = new EvenementDAO();
         Collection<Evenement> evenements = EvenementDAO.lister(cnx);
-        
-        for(Evenement event : evenements) {
+
+        for (Evenement event : evenements) {
             model.addRow(new Object[]{
                 event.getNom(),
                 event.getDescription(),
@@ -646,21 +698,20 @@ public class MegaCastingMain extends javax.swing.JFrame {
                 event.getAdresse().getNumero(),
                 event.getAdresse().getRue(),
                 event.getAdresse().getCodePostal(),
-                event.getAdresse().getVille(),
-                event.getAdresse().getLocalisation(),
+                event.getAdresse().getVille(),      
                 event.getAnnonceur().getNom()
             });
         }
     }
-    
+
     private void refreshListMusique() {
         DefaultTableModel model = (DefaultTableModel) musiqueTab.getModel();
         model.setNumRows(0);
-        
+
         MusiqueDAO musiqueDAO = new MusiqueDAO();
         Collection<Musique> musiques = MusiqueDAO.lister(cnx);
-        
-        for(Musique m : musiques) {
+
+        for (Musique m : musiques) {
             model.addRow(new Object[]{
                 m.getTitre(),
                 m.getDescription(),
@@ -669,12 +720,12 @@ public class MegaCastingMain extends javax.swing.JFrame {
             });
         }
     }
-    
+
     private void evenementMenuAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_evenementMenuAjouterActionPerformed
         // TODO add your handling code here
         ajouterEvenement ajouterEvenementFrame = new ajouterEvenement();
         ajouterEvenementFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        ajouterEvenementFrame.setSize(600, 600);
+        // ajouterEvenementFrame.setSize(600, 600);
         ajouterEvenementFrame.setVisible(true);
     }//GEN-LAST:event_evenementMenuAjouterActionPerformed
 
@@ -682,7 +733,7 @@ public class MegaCastingMain extends javax.swing.JFrame {
         // TODO add your handling code here:
         ajouterOffre ajouterOffreFrame = new ajouterOffre();
         ajouterOffreFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        ajouterOffreFrame.setSize(1200, 600);
+        // ajouterOffreFrame.setSize(1000, 600);
         ajouterOffreFrame.setVisible(true);
     }//GEN-LAST:event_offreMenuAjouterActionPerformed
 
@@ -690,7 +741,7 @@ public class MegaCastingMain extends javax.swing.JFrame {
         // TODO add your handling code here:
         ajouterAnnonceur ajouterAnnonceurFrame = new ajouterAnnonceur();
         ajouterAnnonceurFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        ajouterAnnonceurFrame.setSize(600, 600);
+        // ajouterAnnonceurFrame.setSize(600, 600);
         ajouterAnnonceurFrame.setVisible(true);
     }//GEN-LAST:event_annonceurMenuAjouterActionPerformed
 
@@ -703,25 +754,23 @@ public class MegaCastingMain extends javax.swing.JFrame {
             pst = cnx.prepareStatement(sql);
             rs = pst.executeQuery();
             if (rs.next()) {
-                String add1  = rs.getString("");
+                String add1 = rs.getString("");
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_offreTabMouseClicked
 
     private void updateOffreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateOffreActionPerformed
         // TODO add your handling code here:
-        
+
         String titre = JOptionPane.showInputDialog("Entrer le titre de l'offre");
         String reference = JOptionPane.showInputDialog("Entrer la référence");
         String dateFin = JOptionPane.showInputDialog("Entrer la date de fin");
         String nbrPoste = JOptionPane.showInputDialog("Entrer le nombre de poste");
-        
 
         //offreTab.getModel().setValueAt(name, offreTab.getSelectedRow(), 0);
-        
+
     }//GEN-LAST:event_updateOffreActionPerformed
 
     private void updateAnnonceursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateAnnonceursActionPerformed
@@ -731,13 +780,15 @@ public class MegaCastingMain extends javax.swing.JFrame {
 
     private void updateDiffuseurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDiffuseurActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_updateDiffuseurActionPerformed
 
     private void diffuseurMenuAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diffuseurMenuAjouterActionPerformed
-            // TODO add your handling code here:
+        // TODO add your handling code here:
         ajouterDiffuseur ajouterDiffuseurFrame = new ajouterDiffuseur();
         ajouterDiffuseurFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        ajouterDiffuseurFrame.setSize(600, 600);
+        ajouterDiffuseurFrame.setResizable(false);
+        ajouterDiffuseurFrame.setLocationRelativeTo(null);
         ajouterDiffuseurFrame.setVisible(true);
     }//GEN-LAST:event_diffuseurMenuAjouterActionPerformed
 
@@ -745,7 +796,7 @@ public class MegaCastingMain extends javax.swing.JFrame {
         // TODO add your handling code here:
         ajouterMusique ajouterMusiqueFrame = new ajouterMusique();
         ajouterMusiqueFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        ajouterMusiqueFrame.setSize(600, 600);
+        // ajouterMusiqueFrame.setSize(600, 600);
         ajouterMusiqueFrame.setVisible(true);
     }//GEN-LAST:event_musiqueMenuAjouterActionPerformed
 
@@ -753,9 +804,8 @@ public class MegaCastingMain extends javax.swing.JFrame {
         // TODO add your handling code here:
         Offre offreSelected = OffreDAO.lister(cnx).get(offreTab.getSelectedRow());
 
-        
-        if(offreSelected != null){
-            new  OffreDAO().supprimer(cnx, offreSelected);
+        if (offreSelected != null) {
+            new OffreDAO().supprimer(cnx, offreSelected);
         }
         refreshListOffre();
     }//GEN-LAST:event_supprimerOffreBoutonActionPerformed
@@ -764,44 +814,42 @@ public class MegaCastingMain extends javax.swing.JFrame {
         // TODO add your handling code here:
         Annonceur annonceurSelected = AnnonceursDAO.lister(cnx).get(annonceurTab.getSelectedRow());
 
-        
-        if(annonceurSelected != null){
-            new  AnnonceursDAO().supprimer(cnx, annonceurSelected);
+        if (annonceurSelected != null) {
+            new AnnonceursDAO().supprimer(cnx, annonceurSelected);
         }
-        refreshListOffre();
+        refreshListAnnonceur();
     }//GEN-LAST:event_supprimerAnnonceurBoutonActionPerformed
 
     private void supprimerDiffuseurBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerDiffuseurBoutonActionPerformed
         // TODO add your handling code here:
-        Diffuseur diffuseurSelected = DiffuseursDAO.lister(cnx).get(annonceurTab.getSelectedRow());
+        Diffuseur diffuseurSelected = DiffuseursDAO.lister(cnx).get(diffuseurTab.getSelectedRow());
 
-        
-        if(diffuseurSelected != null){
-            new  DiffuseursDAO().supprimer(cnx, diffuseurSelected);
+        System.out.println("test");
+        System.err.println("test2");
+        if (diffuseurSelected != null) {
+            new DiffuseursDAO().supprimer(cnx, diffuseurSelected);
         }
-        refreshListOffre();
+        refreshListDiffuseur();
     }//GEN-LAST:event_supprimerDiffuseurBoutonActionPerformed
 
     private void supprimerEvenementBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerEvenementBoutonActionPerformed
         // TODO add your handling code here:
-        Evenement evenementSelected = EvenementDAO.lister(cnx).get(annonceurTab.getSelectedRow());
+        Evenement evenementSelected = EvenementDAO.lister(cnx).get(evenementTab.getSelectedRow());
 
-        
-        if(evenementSelected != null){
-            new  EvenementDAO().supprimer(cnx, evenementSelected);
+        if (evenementSelected != null) {
+            new EvenementDAO().supprimer(cnx, evenementSelected);
         }
-        refreshListOffre();
+        refreshListEvenement();
     }//GEN-LAST:event_supprimerEvenementBoutonActionPerformed
 
     private void supprimerMusiqueBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerMusiqueBoutonActionPerformed
         // TODO add your handling code here:
-        Musique musiqueSelected = MusiqueDAO.lister(cnx).get(annonceurTab.getSelectedRow());
+        Musique musiqueSelected = MusiqueDAO.lister(cnx).get(musiqueTab.getSelectedRow());
 
-        
-        if(musiqueSelected != null){
-            new  MusiqueDAO().supprimer(cnx, musiqueSelected);
+        if (musiqueSelected != null) {
+            new MusiqueDAO().supprimer(cnx, musiqueSelected);
         }
-        refreshListOffre();
+        refreshListMusique();
     }//GEN-LAST:event_supprimerMusiqueBoutonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -809,7 +857,49 @@ public class MegaCastingMain extends javax.swing.JFrame {
         refreshAllList();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    
+    private void quitterMenuFichierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitterMenuFichierActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_quitterMenuFichierActionPerformed
+
+    private void offreMenuModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_offreMenuModifierActionPerformed
+        // TODO add your handling code here:
+        modifierOffre modifierOffreFrame = new modifierOffre();
+        modifierOffreFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        // ajouterOffreFrame.setSize(1000, 600);
+        modifierOffreFrame.setVisible(true);
+
+
+    }//GEN-LAST:event_offreMenuModifierActionPerformed
+
+    private void annonceurMenuModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annonceurMenuModifierActionPerformed
+        modifierAnnonceur modifierAnnonceurFrame = new modifierAnnonceur();
+        modifierAnnonceurFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        modifierAnnonceurFrame.setVisible(true);
+    }//GEN-LAST:event_annonceurMenuModifierActionPerformed
+
+    private void diffuseurMenuModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diffuseurMenuModifierActionPerformed
+
+        modifierDiffuseur modifierDiffuseurFrame = new modifierDiffuseur();
+        modifierDiffuseurFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        modifierDiffuseurFrame.setVisible(true);
+
+    }//GEN-LAST:event_diffuseurMenuModifierActionPerformed
+
+    private void evenementMenuModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_evenementMenuModifierActionPerformed
+        // TODO add your handling code here:
+        modifierEvenement modifierEvenementFrame = new modifierEvenement();
+        modifierEvenementFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        modifierEvenementFrame.setVisible(true);
+        
+        
+    }//GEN-LAST:event_evenementMenuModifierActionPerformed
+
+    private void musiqueMenuModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_musiqueMenuModifierActionPerformed
+        modifierMusique modifiermusiqueFrame = new modifierMusique();
+        modifiermusiqueFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        modifiermusiqueFrame.setVisible(true);
+    }//GEN-LAST:event_musiqueMenuModifierActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -847,21 +937,24 @@ public class MegaCastingMain extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AccueilPanel;
+    private javax.swing.JMenu ModifierMenuFichier;
     private javax.swing.JMenu aideMenu;
     private javax.swing.JMenu ajouterMenuFichier;
     private javax.swing.JMenuItem annonceurMenuAjouter;
+    private javax.swing.JMenuItem annonceurMenuModifier;
     private javax.swing.JPanel annonceurPanel;
     private javax.swing.JTable annonceurTab;
     private javax.swing.JMenuBar barreMenu;
     private javax.swing.JMenuItem diffuseurMenuAjouter;
+    private javax.swing.JMenuItem diffuseurMenuModifier;
     private javax.swing.JPanel diffuseurPanel;
     private javax.swing.JTable diffuseurTab;
     private javax.swing.JMenu editionMenu;
     private javax.swing.JMenuItem evenementMenuAjouter;
+    private javax.swing.JMenuItem evenementMenuModifier;
     private javax.swing.JPanel evenementPanel;
     private javax.swing.JTable evenementTab;
     private javax.swing.JMenu fichierMenu;
-    private javax.swing.JMenuItem imprimerMenuFichier;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -872,9 +965,11 @@ public class MegaCastingMain extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JMenuItem musiqueMenuAjouter;
+    private javax.swing.JMenuItem musiqueMenuModifier;
     private javax.swing.JPanel musiquePanel;
     private javax.swing.JTable musiqueTab;
     private javax.swing.JMenuItem offreMenuAjouter;
+    private javax.swing.JMenuItem offreMenuModifier;
     private javax.swing.JPanel offrePanel;
     private javax.swing.JTable offreTab;
     private javax.swing.JTabbedPane page;

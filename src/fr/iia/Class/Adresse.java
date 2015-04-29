@@ -10,7 +10,8 @@ public class Adresse {
     private String codePostal;
     private String rue;
     private String ville;
-    private String localisation;
+    private String latitude;
+    private String longitude;
 
     public int getId() {
         return id;
@@ -52,21 +53,7 @@ public class Adresse {
         this.ville = ville;
     }
 
-    public String getLocalisation() {
-        return localisation;
-    }
 
-    public void setLocalisation(String localisation) {
-        this.localisation = localisation;
-    }
-
-    public Adresse(int numero, String codePostal, String rue, String ville, String localisation) {
-        this.numero = numero;
-        this.codePostal = codePostal;
-        this.rue = rue;
-        this.ville = ville;
-        this.localisation = localisation;
-    }
 
     public Adresse(int numero, String codePostal, String rue, String ville) {
         this.numero = numero;
@@ -74,6 +61,50 @@ public class Adresse {
         this.rue = rue;
         this.ville = ville;
     }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public Adresse(int id, int numero, String codePostal, String rue, String ville, String latitude, String longitude) {
+        this.id = id;
+        this.numero = numero;
+        this.codePostal = codePostal;
+        this.rue = rue;
+        this.ville = ville;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public Adresse(int numero, String codePostal, String rue, String ville, String latitude, String longitude) {
+        this.numero = numero;
+        this.codePostal = codePostal;
+        this.rue = rue;
+        this.ville = ville;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public Adresse(int id, int numero, String codePostal, String rue, String ville) {
+        this.id = id;
+        this.numero = numero;
+        this.codePostal = codePostal;
+        this.rue = rue;
+        this.ville = ville;
+    }
+
 
     
     
@@ -98,9 +129,7 @@ public class Adresse {
         if (!Objects.equals(this.ville, other.ville)) {
             return false;
         }
-        if (!Objects.equals(this.localisation, other.localisation)) {
-            return false;
-        }
+
         return true;
     }
 }

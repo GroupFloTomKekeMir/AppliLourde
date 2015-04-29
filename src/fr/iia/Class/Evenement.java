@@ -76,6 +76,17 @@ public class Evenement {
         this.Adresse = Adresse;
         this.Annonceur = Annonceur;
     }
+
+    public Evenement(int id, String nom, String description, String dateEvenement, Adresse Adresse, Annonceur Annonceur) {
+        this.id = id;
+        this.nom = nom;
+        this.description = description;
+        this.dateEvenement = dateEvenement;
+        this.Adresse = Adresse;
+        this.Annonceur = Annonceur;
+    }
+    
+    
     
     @Override
     public boolean equals(Object obj) {

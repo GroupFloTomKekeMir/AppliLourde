@@ -75,6 +75,16 @@ public class Annonceur {
         this.Media = Media;
     }
 
+    public Annonceur(int id, String nom, String mail, String numeroTel, Adresse Adresse) {
+        this.id = id;
+        this.nom = nom;
+        this.mail = mail;
+        this.numeroTel = numeroTel;
+        this.Adresse = Adresse;
+    }
+
+    
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

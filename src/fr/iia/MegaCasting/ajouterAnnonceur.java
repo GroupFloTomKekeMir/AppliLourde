@@ -12,6 +12,7 @@ import fr.iia.DAO.AnnonceursDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -44,7 +45,6 @@ public class ajouterAnnonceur extends javax.swing.JFrame {
         nomBox = new javax.swing.JTextField();
         mailBox = new javax.swing.JTextField();
         telephoneBox = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         boutonEnregistrer = new javax.swing.JButton();
         numeroSpinner = new javax.swing.JSpinner();
         nomRueBox = new javax.swing.JTextField();
@@ -61,9 +61,7 @@ public class ajouterAnnonceur extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Ajouter Annonceur");
-        jLabel1.setToolTipText("");
+        setTitle("Ajouter Annonceur");
 
         boutonEnregistrer.setText("Enregistrer");
         boutonEnregistrer.addActionListener(new java.awt.event.ActionListener() {
@@ -118,16 +116,11 @@ public class ajouterAnnonceur extends javax.swing.JFrame {
                         .addComponent(cpBox, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(villeBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)))
                 .addGap(44, 44, 44))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(34, 34, 34)
+                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -179,18 +172,19 @@ public class ajouterAnnonceur extends javax.swing.JFrame {
         String rue = nomRueBox.getText();
         String codePostal = cpBox.getText();
         String ville = villeBox.getText();
-        String localisation = localisationBox.getText();
+        
         
         
         AnnonceursDAO annonceurDAO = new AnnonceursDAO();
         Annonceur annonceur = AnnonceursDAO.trouver(cnx, nom);
         
         if (annonceur == null) {
-            Adresse adresse = new Adresse(numRue, codePostal, rue, ville, localisation);
+            Adresse adresse = new Adresse(numRue, codePostal, rue, ville);
             annonceur = new Annonceur(nom, mail, rue, adresse, null);
             
             try {
-                AnnonceursDAO.creer(cnx, annonceur);
+              String message =   AnnonceursDAO.creer(cnx, annonceur);
+              JOptionPane.showMessageDialog(rootPane, message);
                 
             } 
             catch (Exception ex) {
@@ -237,7 +231,6 @@ public class ajouterAnnonceur extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton boutonEnregistrer;
     private javax.swing.JTextField cpBox;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

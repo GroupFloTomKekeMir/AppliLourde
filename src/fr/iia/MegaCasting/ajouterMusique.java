@@ -14,6 +14,7 @@ import fr.iia.DAO.UtilisateurDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -52,8 +53,13 @@ public class ajouterMusique extends javax.swing.JFrame {
         boutonEnregistrer = new javax.swing.JButton();
         UtilisateurBox = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        date_ajout_box = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        lien_yt_box = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Ajouter musique");
 
         jLabel1.setText("Titre");
 
@@ -76,6 +82,12 @@ public class ajouterMusique extends javax.swing.JFrame {
 
         jLabel5.setText("Artiste");
 
+        jLabel2.setText("Date d'ajout");
+
+        date_ajout_box.setText("aaaa-mm-jj");
+
+        jLabel6.setText("lien YT");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -88,25 +100,28 @@ public class ajouterMusique extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(45, 45, 45)
-                                .addComponent(titreBox))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                                .addComponent(UtilisateurBox, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(244, 244, 244))
+                        .addComponent(jLabel1)
+                        .addGap(69, 69, 69)
+                        .addComponent(titreBox, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                        .addGap(220, 220, 220))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(14, 14, 14)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addComponent(jLabel6))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5))
+                        .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(descriptionBox)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(genreBox, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(UtilisateurBox, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(genreBox, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(date_ajout_box, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lien_yt_box, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
@@ -125,11 +140,19 @@ public class ajouterMusique extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(genreBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(UtilisateurBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addComponent(date_ajout_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(lien_yt_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(UtilisateurBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addComponent(boutonEnregistrer)
                 .addContainerGap())
         );
@@ -146,6 +169,8 @@ public class ajouterMusique extends javax.swing.JFrame {
         String artiste = (String)UtilisateurBox.getSelectedItem();
         String description = descriptionBox.getText();       
         String genre = genreBox.getText();
+        String lien_yt = lien_yt_box.getText();
+        String date_ajout = date_ajout_box.getText();
         
 
         MusiqueDAO musiqueDAO = new MusiqueDAO();
@@ -155,11 +180,12 @@ public class ajouterMusique extends javax.swing.JFrame {
 
         if (musique == null) {
            
-            musique = new Musique(titre, description, genre, utilisateur);
+            musique = new Musique(titre, description, genre,lien_yt,date_ajout,utilisateur);
 
             try {
-                MusiqueDAO.creer(cnx, musique);
-
+               String message = MusiqueDAO.creer(cnx, musique);
+               JOptionPane.showMessageDialog(rootPane, message);
+                
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -221,12 +247,16 @@ public class ajouterMusique extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox UtilisateurBox;
     private javax.swing.JButton boutonEnregistrer;
+    private javax.swing.JTextField date_ajout_box;
     private javax.swing.JTextField descriptionBox;
     private javax.swing.JTextField genreBox;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JTextField lien_yt_box;
     private javax.swing.JTextField titreBox;
     // End of variables declaration//GEN-END:variables
 }

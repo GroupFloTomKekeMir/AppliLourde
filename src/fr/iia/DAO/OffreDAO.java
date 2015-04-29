@@ -11,6 +11,7 @@ import fr.iia.Class.Diffuseur;
 import fr.iia.Class.Metier;
 import fr.iia.Class.Offre;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -26,7 +27,7 @@ import java.util.TimeZone;
  * @author Enzo
  */
 public class OffreDAO {
-    public static void creer(Connection cnx, Offre off) throws Exception{
+    public static String creer(Connection cnx, Offre off) throws Exception{
                
         Offre o = trouver(cnx, off.getReference());
         
@@ -49,12 +50,14 @@ public class OffreDAO {
                 off.setId(id);
 
             System.out.println("Création réussie.");
+            
             }	 
         }
 
         catch(Exception ex){
                 ex.printStackTrace();
                 System.out.println("Echec creer offre");
+                return "Création échouée";
         }
 
         finally{
@@ -66,6 +69,7 @@ public class OffreDAO {
                 }
             }
         }
+        return "Création réussi";
     } 
     
     public static Offre trouver(Connection cnx, String reference){
@@ -166,14 +170,14 @@ public class OffreDAO {
                 catch (SQLException e) {
                     e.printStackTrace();
                 }
-            }
+            }   
         }
 
         return offre;
     }
     
-    public static void modifier(Connection cnx, Offre offre) throws Exception {
-        Offre o = trouver(cnx, offre.getId());
+    public static String modifier(Connection cnx, Offre offre) throws Exception {
+        Offre o = trouver(cnx,offre.getReference());
 
         if(o != null){
             try{
@@ -184,26 +188,40 @@ public class OffreDAO {
             }
         }		
 
-        Statement stmt = null;
+        PreparedStatement pstmt = null;
         try{			
-            stmt = cnx.createStatement();
-            stmt.executeUpdate("UPDATE offre "
-                + "SET titre = '" + offre.getTitre() +  "', reference = '" + offre.getReference() +  "', date_debut_publi = '" + offre.getDate_debut_publi() +  "', fin_publi = '" + offre.getFin_publi() +  "', nbr_poste = '" + offre.getNbr_poste() + "', descr_poste = '" + offre.getDescription_poste() + "', descr_profil = '" + offre.getDescription_profil() +  "', duree_contrat = '" + offre.getDuree() + "', id_contrat = '" + offre.getContrat() +  "', id_annonceur = '" + offre.getAnnonceur() +  "', id_diffuseur = '" + offre.getDiffuseur() + "', id_metier = '" + offre.getMetier() + " "
-                + "WHERE id_musique = " + offre.getId());
-
+           pstmt = cnx.prepareStatement("UPDATE offre SET titre = ? , reference = ? , date_debut_publi = ? , fin_publi = ? , nbr_poste = ? , descr_poste = ? , descr_profil = ? , duree_contrat = ? , id_contrat = ? , id_annonceur = ? , id_diffuseur = ? , id_metier = ? WHERE  id_offre = ?  ");
+           
+           pstmt.setString(1,offre.getTitre());
+           pstmt.setString(2,offre.getReference());
+           pstmt.setString(3,offre.getDate_debut_publi());
+           pstmt.setString(4,offre.getFin_publi());
+           pstmt.setInt(5,offre.getNbr_poste());
+           pstmt.setString(6,offre.getDescription_poste());
+           pstmt.setString(7,offre.getDescription_profil());
+           pstmt.setInt(8,offre.getDuree());
+           pstmt.setInt(9,offre.getContrat().getId());
+           pstmt.setInt(10,offre.getAnnonceur().getId());
+           pstmt.setInt(11,offre.getDiffuseur().getId());
+           pstmt.setInt(12,offre.getMetier().getId());
+           pstmt.setInt(13,offre.getId());
+           
+           pstmt.executeUpdate();
 
         }catch(Exception ex){
             ex.printStackTrace();
             System.out.println("Echec modifier musique");
+            return "Modification echouée";
         }finally{
-            if(stmt != null){
+            if(pstmt != null){
                 try {
-                    stmt.close();
+                    pstmt.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
         }
+        return "Modification réussie";
     }	
     
     public static void supprimer(Connection cnx, Offre offre){

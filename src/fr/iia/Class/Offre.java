@@ -132,6 +132,24 @@ public class Offre {
         this.Metier = Metier;
     }
 
+    public Offre(int id, String titre, String reference, String date_debut_publi, String fin_publi, int nbr_poste, String description_poste, String description_profil, int duree, Contrat Contrat, Annonceur Annonceur, Diffuseur Diffuseur, Metier Metier) {
+        this.id = id;
+        this.titre = titre;
+        this.reference = reference;
+        this.date_debut_publi = date_debut_publi;
+        this.fin_publi = fin_publi;
+        this.nbr_poste = nbr_poste;
+        this.description_poste = description_poste;
+        this.description_profil = description_profil;
+        this.duree = duree;
+        this.Contrat = Contrat;
+        this.Annonceur = Annonceur;
+        this.Diffuseur = Diffuseur;
+        this.Metier = Metier;
+    }
+    
+    
+
     public Offre(String titre, String reference, String date_debut_publi, String fin_publi, int nbr_poste, String description_poste, String description_profil, int duree, Contrat Contrat, Annonceur Annonceur, Diffuseur Diffuseur, Metier Metier) {
         this.titre = titre;
         this.reference = reference;
