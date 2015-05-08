@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import fr.iia.MegaCasting.MegaCastingMain;
 
 /**
  *
@@ -25,6 +26,7 @@ public class ajouterMusique extends javax.swing.JFrame {
     Connection cnx = null;
     ResultSet rs = null;
     PreparedStatement pst = null;
+
     /**
      * Creates new form ajouterMusique
      */
@@ -158,34 +160,37 @@ public class ajouterMusique extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    
+
     private void boutonEnregistrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonEnregistrerActionPerformed
 
         // TODO add your handling code here:
-
         String titre = titreBox.getText();
-        String artiste = (String)UtilisateurBox.getSelectedItem();
-        String description = descriptionBox.getText();       
+        String artiste = (String) UtilisateurBox.getSelectedItem();
+        String description = descriptionBox.getText();
         String genre = genreBox.getText();
         String lien_yt = lien_yt_box.getText();
-        String date_ajout = date_ajout_box.getText();
-        
+        String date_ajout = "yyyy-MM-dd";
+        java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat(date_ajout);
+        java.util.Date date = new java.util.Date();
+        date_ajout = formater.format(date);
+        System.out.println(formater.format(date));
 
         MusiqueDAO musiqueDAO = new MusiqueDAO();
         Utilisateur utilisateur = UtilisateurDAO.trouver(cnx, artiste);
         Musique musique = MusiqueDAO.trouver(cnx, titre);
-        
 
         if (musique == null) {
-           
-            musique = new Musique(titre, description, genre,lien_yt,date_ajout,utilisateur);
+
+            musique = new Musique(titre, description, genre, lien_yt, date_ajout, utilisateur);
 
             try {
-               String message = MusiqueDAO.creer(cnx, musique);
-               JOptionPane.showMessageDialog(rootPane, message);
-                
+                String message = MusiqueDAO.creer(cnx, musique);
+                JOptionPane.showMessageDialog(rootPane, message);
+
+
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -197,15 +202,14 @@ public class ajouterMusique extends javax.swing.JFrame {
             String sql = "Select nom_artiste from utilisateur";
             pst = cnx.prepareStatement(sql);
             rs = pst.executeQuery();
-            
-            while (rs.next()) {                
+
+            while (rs.next()) {
                 String nom_artiste = rs.getString("nom_artiste");
                 UtilisateurBox.addItem(nom_artiste);
             }
-            
-        } 
-        catch (Exception e) {
-        
+
+        } catch (Exception e) {
+
         }
     }//GEN-LAST:event_UtilisateurBoxActionPerformed
 

@@ -149,21 +149,19 @@ public class AnnonceursDAO {
             AdresseDAO.modifier(cnx, annonceur.getAdresse());
             //MediaDAO.modifier(cnx, annonceur.getMedia());
 
-            
 //            stmt.executeUpdate("UPDATE annonceur "
 //                    + "SET nom = '" + annonceur.getNom() + "', mail = '" + annonceur.getMail() + "', telephone = " + annonceur.getNumeroTel() + "', id_adresse = " + annonceur.getAdresse() + "', id_media = " + annonceur.getMedia() + " "
 //                    + "WHERE id_annonceur = " + annonceur.getId());
-            
-             pstmt = cnx.prepareStatement("UPDATE `annonceur` SET `nom`= ?,`mail`= ?,`telephone`= ?,`id_adresse`= ? WHERE id_annonceur = ?");
-             pstmt.setString(1,annonceur.getNom());
-             pstmt.setString(2,annonceur.getMail());
-             pstmt.setString(3,annonceur.getNumeroTel());
-             pstmt.setInt(4,annonceur.getAdresse().getId());
+            pstmt = cnx.prepareStatement("UPDATE `annonceur` SET `nom`= ?,`mail`= ?,`telephone`= ?,`id_adresse`= ? WHERE id_annonceur = ?");
+            pstmt.setString(1, annonceur.getNom());
+            pstmt.setString(2, annonceur.getMail());
+            pstmt.setString(3, annonceur.getNumeroTel());
+            pstmt.setInt(4, annonceur.getAdresse().getId());
             // pstmt.setInt(5,annonceur.getMedia().getId());
-             pstmt.setInt(5,annonceur.getId());
-             
-             pstmt.executeUpdate();
-             
+            pstmt.setInt(5, annonceur.getId());
+
+            pstmt.executeUpdate();
+
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Echec modifier annonceur");
@@ -186,13 +184,13 @@ public class AnnonceursDAO {
         try {
             stmt = cnx.createStatement();
             stmt.executeUpdate("DELETE FROM evenement WHERE id_annonceur = " + annonceur.getId());
-            stmt.executeUpdate("UPDATE annonceur SET id_adresse = null WHERE id_annonceur ="+annonceur.getId());
+            stmt.executeUpdate("UPDATE annonceur SET id_adresse = null WHERE id_annonceur =" + annonceur.getId());
             stmt.executeUpdate("DELETE FROM adresse WHERE id_adr = " + annonceur.getAdresse().getId());
             stmt.executeUpdate("DELETE FROM offre WHERE id_annonceur = " + annonceur.getId());
             stmt.executeUpdate("DELETE FROM annonceur WHERE id_annonceur = " + annonceur.getId());
 
             AdresseDAO.supprimer(cnx, annonceur.getAdresse());
-           // MediaDAO.supprimer(cnx, annonceur.getMedia());
+            // MediaDAO.supprimer(cnx, annonceur.getMedia());
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Echec supprimer annonceur");

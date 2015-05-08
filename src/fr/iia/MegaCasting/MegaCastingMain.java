@@ -7,6 +7,7 @@ package fr.iia.MegaCasting;
 
 import fr.iia.Class.Adresse;
 import fr.iia.Class.Annonceur;
+import fr.iia.Class.Article;
 import fr.iia.Class.Diffuseur;
 import fr.iia.Class.Evenement;
 import fr.iia.Class.Musique;
@@ -15,6 +16,7 @@ import fr.iia.Connection.JavaConnect;
 import static fr.iia.Connection.JavaConnect.ConnectDB;
 import static fr.iia.Connection.JavaConnect.ImportDriver;
 import fr.iia.DAO.AnnonceursDAO;
+import fr.iia.DAO.ArticleDAO;
 import fr.iia.DAO.DiffuseursDAO;
 import fr.iia.DAO.EvenementDAO;
 import fr.iia.DAO.MusiqueDAO;
@@ -81,7 +83,7 @@ public class MegaCastingMain extends javax.swing.JFrame {
     public void paintComponent(Graphics g) {
         try {
             Image img = ImageIO.read(new File("Fond.jpg"));
-        //g.drawImage(img, 50, 50, this);
+            //g.drawImage(img, 50, 50, this);
             //Pour une image de fond
             g.drawImage(img, 50, 50, this.getWidth(), this.getHeight(), this);
         } catch (IOException e) {
@@ -105,28 +107,27 @@ public class MegaCastingMain extends javax.swing.JFrame {
         offrePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         offreTab = new javax.swing.JTable();
-        updateOffre = new javax.swing.JButton();
         supprimerOffreBouton = new javax.swing.JButton();
         annonceurPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         annonceurTab = new javax.swing.JTable();
-        updateAnnonceurs = new javax.swing.JButton();
         supprimerAnnonceurBouton = new javax.swing.JButton();
         diffuseurPanel = new javax.swing.JPanel();
-        updateDiffuseur = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         diffuseurTab = new javax.swing.JTable();
         supprimerDiffuseurBouton = new javax.swing.JButton();
         evenementPanel = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         evenementTab = new javax.swing.JTable();
-        updateEvenement = new javax.swing.JButton();
         supprimerEvenementBouton = new javax.swing.JButton();
         musiquePanel = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         musiqueTab = new javax.swing.JTable();
-        updateMusique = new javax.swing.JButton();
         supprimerMusiqueBouton = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        articleTab = new javax.swing.JTable();
+        Supprimer_article = new javax.swing.JButton();
         barreMenu = new javax.swing.JMenuBar();
         fichierMenu = new javax.swing.JMenu();
         ajouterMenuFichier = new javax.swing.JMenu();
@@ -135,12 +136,14 @@ public class MegaCastingMain extends javax.swing.JFrame {
         diffuseurMenuAjouter = new javax.swing.JMenuItem();
         evenementMenuAjouter = new javax.swing.JMenuItem();
         musiqueMenuAjouter = new javax.swing.JMenuItem();
+        articleMenuAjouter1 = new javax.swing.JMenuItem();
         ModifierMenuFichier = new javax.swing.JMenu();
         offreMenuModifier = new javax.swing.JMenuItem();
         annonceurMenuModifier = new javax.swing.JMenuItem();
         diffuseurMenuModifier = new javax.swing.JMenuItem();
         evenementMenuModifier = new javax.swing.JMenuItem();
         musiqueMenuModifier = new javax.swing.JMenuItem();
+        articleMenuModifier1 = new javax.swing.JMenuItem();
         quitterMenuFichier = new javax.swing.JMenuItem();
         editionMenu = new javax.swing.JMenu();
         aideMenu = new javax.swing.JMenu();
@@ -172,7 +175,7 @@ public class MegaCastingMain extends javax.swing.JFrame {
                     .addGroup(AccueilPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton1)))
-                .addContainerGap(601, Short.MAX_VALUE))
+                .addContainerGap(360, Short.MAX_VALUE))
         );
         AccueilPanelLayout.setVerticalGroup(
             AccueilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,7 +184,7 @@ public class MegaCastingMain extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addGap(86, 86, 86)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addContainerGap(214, Short.MAX_VALUE))
         );
 
         page.addTab("Accueil", AccueilPanel);
@@ -209,13 +212,6 @@ public class MegaCastingMain extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(offreTab);
 
-        updateOffre.setText("Modifier");
-        updateOffre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateOffreActionPerformed(evt);
-            }
-        });
-
         supprimerOffreBouton.setText("Supprimer");
         supprimerOffreBouton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,23 +226,20 @@ public class MegaCastingMain extends javax.swing.JFrame {
             .addGroup(offrePanelLayout.createSequentialGroup()
                 .addGroup(offrePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(offrePanelLayout.createSequentialGroup()
-                        .addComponent(updateOffre)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(77, 77, 77)
                         .addComponent(supprimerOffreBouton))
                     .addGroup(offrePanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1241, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         offrePanelLayout.setVerticalGroup(
             offrePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, offrePanelLayout.createSequentialGroup()
-                .addGroup(offrePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(updateOffre)
-                    .addComponent(supprimerOffreBouton))
+                .addComponent(supprimerOffreBouton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         page.addTab("Offres", offrePanel);
@@ -269,13 +262,6 @@ public class MegaCastingMain extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(annonceurTab);
 
-        updateAnnonceurs.setText("Mise à jour");
-        updateAnnonceurs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateAnnonceursActionPerformed(evt);
-            }
-        });
-
         supprimerAnnonceurBouton.setText("Supprimer");
         supprimerAnnonceurBouton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,32 +273,24 @@ public class MegaCastingMain extends javax.swing.JFrame {
         annonceurPanel.setLayout(annonceurPanelLayout);
         annonceurPanelLayout.setHorizontalGroup(
             annonceurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1261, Short.MAX_VALUE)
             .addGroup(annonceurPanelLayout.createSequentialGroup()
-                .addComponent(updateAnnonceurs)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 20, Short.MAX_VALUE))
+            .addGroup(annonceurPanelLayout.createSequentialGroup()
+                .addGap(43, 43, 43)
                 .addComponent(supprimerAnnonceurBouton)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         annonceurPanelLayout.setVerticalGroup(
             annonceurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, annonceurPanelLayout.createSequentialGroup()
-                .addGroup(annonceurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(updateAnnonceurs)
-                    .addComponent(supprimerAnnonceurBouton))
+                .addComponent(supprimerAnnonceurBouton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         page.addTab("Annonceurs", annonceurPanel);
-
-        updateDiffuseur.setText("Mise à jour");
-        updateDiffuseur.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateDiffuseurActionPerformed(evt);
-            }
-        });
 
         diffuseurTab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -346,21 +324,20 @@ public class MegaCastingMain extends javax.swing.JFrame {
         diffuseurPanelLayout.setHorizontalGroup(
             diffuseurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(diffuseurPanelLayout.createSequentialGroup()
-                .addComponent(updateDiffuseur)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 20, Short.MAX_VALUE))
+            .addGroup(diffuseurPanelLayout.createSequentialGroup()
+                .addGap(42, 42, 42)
                 .addComponent(supprimerDiffuseurBouton)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1261, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         diffuseurPanelLayout.setVerticalGroup(
             diffuseurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, diffuseurPanelLayout.createSequentialGroup()
-                .addGroup(diffuseurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(updateDiffuseur)
-                    .addComponent(supprimerDiffuseurBouton))
+                .addComponent(supprimerDiffuseurBouton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         page.addTab("Diffuseurs", diffuseurPanel);
@@ -383,8 +360,6 @@ public class MegaCastingMain extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(evenementTab);
 
-        updateEvenement.setText("Mise à jour");
-
         supprimerEvenementBouton.setText("Supprimer");
         supprimerEvenementBouton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -397,21 +372,20 @@ public class MegaCastingMain extends javax.swing.JFrame {
         evenementPanelLayout.setHorizontalGroup(
             evenementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(evenementPanelLayout.createSequentialGroup()
-                .addComponent(updateEvenement)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 20, Short.MAX_VALUE))
+            .addGroup(evenementPanelLayout.createSequentialGroup()
+                .addGap(46, 46, 46)
                 .addComponent(supprimerEvenementBouton)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1261, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         evenementPanelLayout.setVerticalGroup(
             evenementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, evenementPanelLayout.createSequentialGroup()
-                .addGroup(evenementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(updateEvenement)
-                    .addComponent(supprimerEvenementBouton))
+                .addComponent(supprimerEvenementBouton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         page.addTab("Evenements", evenementPanel);
@@ -434,8 +408,6 @@ public class MegaCastingMain extends javax.swing.JFrame {
         });
         jScrollPane5.setViewportView(musiqueTab);
 
-        updateMusique.setText("Mise à jour");
-
         supprimerMusiqueBouton.setText("Supprimer");
         supprimerMusiqueBouton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -448,27 +420,65 @@ public class MegaCastingMain extends javax.swing.JFrame {
         musiquePanelLayout.setHorizontalGroup(
             musiquePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(musiquePanelLayout.createSequentialGroup()
-                .addGroup(musiquePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(musiquePanelLayout.createSequentialGroup()
-                        .addComponent(updateMusique)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(supprimerMusiqueBouton)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1251, Short.MAX_VALUE))
-                .addContainerGap())
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 20, Short.MAX_VALUE))
+            .addGroup(musiquePanelLayout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(supprimerMusiqueBouton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         musiquePanelLayout.setVerticalGroup(
             musiquePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(musiquePanelLayout.createSequentialGroup()
-                .addGroup(musiquePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(updateMusique)
-                    .addComponent(supprimerMusiqueBouton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addComponent(supprimerMusiqueBouton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         page.addTab("Musiques", musiquePanel);
+
+        articleTab.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Nom", "Prix", "Description"
+            }
+        ));
+        jScrollPane7.setViewportView(articleTab);
+
+        Supprimer_article.setText("Supprimer");
+        Supprimer_article.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Supprimer_articleActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 20, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(Supprimer_article)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(Supprimer_article)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        page.addTab("Articles", jPanel1);
 
         barreMenu.setFocusable(false);
 
@@ -516,6 +526,14 @@ public class MegaCastingMain extends javax.swing.JFrame {
         });
         ajouterMenuFichier.add(musiqueMenuAjouter);
 
+        articleMenuAjouter1.setText("Articles");
+        articleMenuAjouter1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                articleMenuAjouter1ActionPerformed(evt);
+            }
+        });
+        ajouterMenuFichier.add(articleMenuAjouter1);
+
         fichierMenu.add(ajouterMenuFichier);
 
         ModifierMenuFichier.setText("Modifier");
@@ -560,6 +578,14 @@ public class MegaCastingMain extends javax.swing.JFrame {
         });
         ModifierMenuFichier.add(musiqueMenuModifier);
 
+        articleMenuModifier1.setText("Articles");
+        articleMenuModifier1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                articleMenuModifier1ActionPerformed(evt);
+            }
+        });
+        ModifierMenuFichier.add(articleMenuModifier1);
+
         fichierMenu.add(ModifierMenuFichier);
 
         quitterMenuFichier.setText("Quitter");
@@ -594,15 +620,12 @@ public class MegaCastingMain extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(page)
-                .addContainerGap())
+                .addComponent(page, javax.swing.GroupLayout.PREFERRED_SIZE, 1007, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(page)
-                .addContainerGap())
+            .addComponent(page, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -614,6 +637,7 @@ public class MegaCastingMain extends javax.swing.JFrame {
         refreshListDiffuseur();
         refreshListMusique();
         refreshListOffre();
+        refreshListArticle();
     }
 
     private void refreshListAnnonceur() {
@@ -631,9 +655,7 @@ public class MegaCastingMain extends javax.swing.JFrame {
                 a.getAdresse().getNumero(),
                 a.getAdresse().getRue(),
                 a.getAdresse().getCodePostal(),
-                a.getAdresse().getVille(),
-
-            });
+                a.getAdresse().getVille(),});
         }
     }
 
@@ -652,9 +674,7 @@ public class MegaCastingMain extends javax.swing.JFrame {
                 d.getAdresse().getNumero(),
                 d.getAdresse().getRue(),
                 d.getAdresse().getCodePostal(),
-                d.getAdresse().getVille(),
-
-            });
+                d.getAdresse().getVille(),});
         }
     }
 
@@ -698,7 +718,7 @@ public class MegaCastingMain extends javax.swing.JFrame {
                 event.getAdresse().getNumero(),
                 event.getAdresse().getRue(),
                 event.getAdresse().getCodePostal(),
-                event.getAdresse().getVille(),      
+                event.getAdresse().getVille(),
                 event.getAnnonceur().getNom()
             });
         }
@@ -719,6 +739,23 @@ public class MegaCastingMain extends javax.swing.JFrame {
                 m.getUtilisateur().getNom_artiste()
             });
         }
+    }
+
+    private void refreshListArticle() {
+        DefaultTableModel model = (DefaultTableModel) articleTab.getModel();
+        model.setNumRows(0);
+
+        ArticleDAO articleDAO = new ArticleDAO();
+        Collection<Article> articles = ArticleDAO.lister(cnx);
+
+        for (Article a : articles) {
+            model.addRow(new Object[]{
+                a.getNom(),
+                a.getPrix(),
+                a.getDescription()
+            });
+        }
+
     }
 
     private void evenementMenuAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_evenementMenuAjouterActionPerformed
@@ -745,44 +782,6 @@ public class MegaCastingMain extends javax.swing.JFrame {
         ajouterAnnonceurFrame.setVisible(true);
     }//GEN-LAST:event_annonceurMenuAjouterActionPerformed
 
-    private void offreTabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_offreTabMouseClicked
-        // TODO add your handling code here:
-        try {
-            int row = offreTab.getSelectedRow();
-            String Table_click = (offreTab.getModel().getValueAt(row, 0).toString());
-            String sql = "SELECT * FROM Offre WHERE id_offre ='" + Table_click + "' ";
-            pst = cnx.prepareStatement(sql);
-            rs = pst.executeQuery();
-            if (rs.next()) {
-                String add1 = rs.getString("");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }//GEN-LAST:event_offreTabMouseClicked
-
-    private void updateOffreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateOffreActionPerformed
-        // TODO add your handling code here:
-
-        String titre = JOptionPane.showInputDialog("Entrer le titre de l'offre");
-        String reference = JOptionPane.showInputDialog("Entrer la référence");
-        String dateFin = JOptionPane.showInputDialog("Entrer la date de fin");
-        String nbrPoste = JOptionPane.showInputDialog("Entrer le nombre de poste");
-
-        //offreTab.getModel().setValueAt(name, offreTab.getSelectedRow(), 0);
-
-    }//GEN-LAST:event_updateOffreActionPerformed
-
-    private void updateAnnonceursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateAnnonceursActionPerformed
-        // TODO add your handling code here:
-        String nom = JOptionPane.showInputDialog("Entrer votre nom");
-    }//GEN-LAST:event_updateAnnonceursActionPerformed
-
-    private void updateDiffuseurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDiffuseurActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_updateDiffuseurActionPerformed
-
     private void diffuseurMenuAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diffuseurMenuAjouterActionPerformed
         // TODO add your handling code here:
         ajouterDiffuseur ajouterDiffuseurFrame = new ajouterDiffuseur();
@@ -799,63 +798,6 @@ public class MegaCastingMain extends javax.swing.JFrame {
         // ajouterMusiqueFrame.setSize(600, 600);
         ajouterMusiqueFrame.setVisible(true);
     }//GEN-LAST:event_musiqueMenuAjouterActionPerformed
-
-    private void supprimerOffreBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerOffreBoutonActionPerformed
-        // TODO add your handling code here:
-        Offre offreSelected = OffreDAO.lister(cnx).get(offreTab.getSelectedRow());
-
-        if (offreSelected != null) {
-            new OffreDAO().supprimer(cnx, offreSelected);
-        }
-        refreshListOffre();
-    }//GEN-LAST:event_supprimerOffreBoutonActionPerformed
-
-    private void supprimerAnnonceurBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerAnnonceurBoutonActionPerformed
-        // TODO add your handling code here:
-        Annonceur annonceurSelected = AnnonceursDAO.lister(cnx).get(annonceurTab.getSelectedRow());
-
-        if (annonceurSelected != null) {
-            new AnnonceursDAO().supprimer(cnx, annonceurSelected);
-        }
-        refreshListAnnonceur();
-    }//GEN-LAST:event_supprimerAnnonceurBoutonActionPerformed
-
-    private void supprimerDiffuseurBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerDiffuseurBoutonActionPerformed
-        // TODO add your handling code here:
-        Diffuseur diffuseurSelected = DiffuseursDAO.lister(cnx).get(diffuseurTab.getSelectedRow());
-
-        System.out.println("test");
-        System.err.println("test2");
-        if (diffuseurSelected != null) {
-            new DiffuseursDAO().supprimer(cnx, diffuseurSelected);
-        }
-        refreshListDiffuseur();
-    }//GEN-LAST:event_supprimerDiffuseurBoutonActionPerformed
-
-    private void supprimerEvenementBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerEvenementBoutonActionPerformed
-        // TODO add your handling code here:
-        Evenement evenementSelected = EvenementDAO.lister(cnx).get(evenementTab.getSelectedRow());
-
-        if (evenementSelected != null) {
-            new EvenementDAO().supprimer(cnx, evenementSelected);
-        }
-        refreshListEvenement();
-    }//GEN-LAST:event_supprimerEvenementBoutonActionPerformed
-
-    private void supprimerMusiqueBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerMusiqueBoutonActionPerformed
-        // TODO add your handling code here:
-        Musique musiqueSelected = MusiqueDAO.lister(cnx).get(musiqueTab.getSelectedRow());
-
-        if (musiqueSelected != null) {
-            new MusiqueDAO().supprimer(cnx, musiqueSelected);
-        }
-        refreshListMusique();
-    }//GEN-LAST:event_supprimerMusiqueBoutonActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        refreshAllList();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void quitterMenuFichierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitterMenuFichierActionPerformed
         System.exit(0);
@@ -890,8 +832,8 @@ public class MegaCastingMain extends javax.swing.JFrame {
         modifierEvenement modifierEvenementFrame = new modifierEvenement();
         modifierEvenementFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         modifierEvenementFrame.setVisible(true);
-        
-        
+
+
     }//GEN-LAST:event_evenementMenuModifierActionPerformed
 
     private void musiqueMenuModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_musiqueMenuModifierActionPerformed
@@ -899,6 +841,105 @@ public class MegaCastingMain extends javax.swing.JFrame {
         modifiermusiqueFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         modifiermusiqueFrame.setVisible(true);
     }//GEN-LAST:event_musiqueMenuModifierActionPerformed
+
+    private void articleMenuAjouter1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_articleMenuAjouter1ActionPerformed
+        // TODO add your handling code here:
+        ajouterArticle ajouterArticleFrame = new ajouterArticle();
+        ajouterArticleFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        // ajouterOffreFrame.setSize(1000, 600);
+        ajouterArticleFrame.setVisible(true);
+    }//GEN-LAST:event_articleMenuAjouter1ActionPerformed
+
+    private void articleMenuModifier1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_articleMenuModifier1ActionPerformed
+        // TODO add your handling code here:
+        modifierArticle modifierArticleFrame = new modifierArticle();
+        modifierArticleFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        // ajouterOffreFrame.setSize(1000, 600);
+        modifierArticleFrame.setVisible(true);
+    }//GEN-LAST:event_articleMenuModifier1ActionPerformed
+
+    private void supprimerMusiqueBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerMusiqueBoutonActionPerformed
+        // TODO add your handling code here:
+        Musique musiqueSelected = MusiqueDAO.lister(cnx).get(musiqueTab.getSelectedRow());
+
+        if (musiqueSelected != null) {
+            new MusiqueDAO().supprimer(cnx, musiqueSelected);
+        }
+        refreshListMusique();
+    }//GEN-LAST:event_supprimerMusiqueBoutonActionPerformed
+
+    private void supprimerEvenementBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerEvenementBoutonActionPerformed
+        // TODO add your handling code here:
+        Evenement evenementSelected = EvenementDAO.lister(cnx).get(evenementTab.getSelectedRow());
+
+        if (evenementSelected != null) {
+            new EvenementDAO().supprimer(cnx, evenementSelected);
+        }
+        refreshListEvenement();
+    }//GEN-LAST:event_supprimerEvenementBoutonActionPerformed
+
+    private void supprimerDiffuseurBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerDiffuseurBoutonActionPerformed
+        // TODO add your handling code here:
+        Diffuseur diffuseurSelected = DiffuseursDAO.lister(cnx).get(diffuseurTab.getSelectedRow());
+
+        System.out.println("test");
+        System.err.println("test2");
+        if (diffuseurSelected != null) {
+            new DiffuseursDAO().supprimer(cnx, diffuseurSelected);
+        }
+        refreshListDiffuseur();
+    }//GEN-LAST:event_supprimerDiffuseurBoutonActionPerformed
+
+    private void supprimerAnnonceurBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerAnnonceurBoutonActionPerformed
+        // TODO add your handling code here:
+        Annonceur annonceurSelected = AnnonceursDAO.lister(cnx).get(annonceurTab.getSelectedRow());
+
+        if (annonceurSelected != null) {
+            new AnnonceursDAO().supprimer(cnx, annonceurSelected);
+        }
+        refreshListAnnonceur();
+    }//GEN-LAST:event_supprimerAnnonceurBoutonActionPerformed
+
+    private void supprimerOffreBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerOffreBoutonActionPerformed
+        // TODO add your handling code here:
+        Offre offreSelected = OffreDAO.lister(cnx).get(offreTab.getSelectedRow());
+
+        if (offreSelected != null) {
+            new OffreDAO().supprimer(cnx, offreSelected);
+        }
+        refreshListOffre();
+    }//GEN-LAST:event_supprimerOffreBoutonActionPerformed
+
+    private void offreTabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_offreTabMouseClicked
+        // TODO add your handling code here:
+        try {
+            int row = offreTab.getSelectedRow();
+            String Table_click = (offreTab.getModel().getValueAt(row, 0).toString());
+            String sql = "SELECT * FROM Offre WHERE id_offre ='" + Table_click + "' ";
+            pst = cnx.prepareStatement(sql);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                String add1 = rs.getString("");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_offreTabMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        refreshAllList();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void Supprimer_articleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Supprimer_articleActionPerformed
+        // TODO add your handling code here:
+        Article articleSelected = ArticleDAO.lister(cnx).get(articleTab.getSelectedRow());
+
+        if (articleSelected != null) {
+            new ArticleDAO().supprimer(cnx, articleSelected);
+        }
+        refreshListArticle();
+    }//GEN-LAST:event_Supprimer_articleActionPerformed
 
     /**
      * @param args the command line arguments
@@ -938,12 +979,16 @@ public class MegaCastingMain extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AccueilPanel;
     private javax.swing.JMenu ModifierMenuFichier;
+    private javax.swing.JButton Supprimer_article;
     private javax.swing.JMenu aideMenu;
     private javax.swing.JMenu ajouterMenuFichier;
     private javax.swing.JMenuItem annonceurMenuAjouter;
     private javax.swing.JMenuItem annonceurMenuModifier;
     private javax.swing.JPanel annonceurPanel;
     private javax.swing.JTable annonceurTab;
+    private javax.swing.JMenuItem articleMenuAjouter1;
+    private javax.swing.JMenuItem articleMenuModifier1;
+    private javax.swing.JTable articleTab;
     private javax.swing.JMenuBar barreMenu;
     private javax.swing.JMenuItem diffuseurMenuAjouter;
     private javax.swing.JMenuItem diffuseurMenuModifier;
@@ -959,11 +1004,13 @@ public class MegaCastingMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JMenuItem musiqueMenuAjouter;
     private javax.swing.JMenuItem musiqueMenuModifier;
     private javax.swing.JPanel musiquePanel;
@@ -979,10 +1026,5 @@ public class MegaCastingMain extends javax.swing.JFrame {
     private javax.swing.JButton supprimerEvenementBouton;
     private javax.swing.JButton supprimerMusiqueBouton;
     private javax.swing.JButton supprimerOffreBouton;
-    private javax.swing.JButton updateAnnonceurs;
-    private javax.swing.JButton updateDiffuseur;
-    private javax.swing.JButton updateEvenement;
-    private javax.swing.JButton updateMusique;
-    private javax.swing.JButton updateOffre;
     // End of variables declaration//GEN-END:variables
 }

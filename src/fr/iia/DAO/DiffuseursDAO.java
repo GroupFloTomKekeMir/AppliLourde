@@ -146,7 +146,7 @@ public class DiffuseursDAO {
         try {
 
             AdresseDAO.modifier(cnx, diffuseur.getAdresse());
-           // MediaDAO.modifier(cnx, diffuseur.getMedia());
+            // MediaDAO.modifier(cnx, diffuseur.getMedia());
 
 //            stmt.executeUpdate("UPDATE annonceur "
 //                    + "SET nom = '" + diffuseur.getNom() + "', mail = '" + diffuseur.getMail() + "', telephone = " + diffuseur.getNumeroTel() + "', id_adresse = " + diffuseur.getAdresse() + "', id_media = " + diffuseur.getMedia() + " "
@@ -160,7 +160,7 @@ public class DiffuseursDAO {
             pstmt.setInt(5, diffuseur.getId());
 
             pstmt.executeUpdate();
-            
+
             return "Modification réussie";
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -182,11 +182,14 @@ public class DiffuseursDAO {
         Statement stmt = null;
         try {
             stmt = cnx.createStatement();
-            stmt.executeUpdate("DELETE FROM offre WHERE id_diffuseur = " + diffuseur.getId());
+
+            stmt.executeUpdate("UPDATE diffuseur SET id_adresse = null WHERE id_diffuseur =" + diffuseur.getId());
+            stmt.executeUpdate("DELETE FROM adresse WHERE id_adr = " + diffuseur.getAdresse().getId());
+            stmt.executeUpdate("UPDATE  offre set id_diffuseur = null WHERE id_diffuseur = " + diffuseur.getId());
             stmt.executeUpdate("DELETE FROM diffuseur WHERE id_diffuseur = " + diffuseur.getId());
 
             AdresseDAO.supprimer(cnx, diffuseur.getAdresse());
-           // MediaDAO.supprimer(cnx, diffuseur.getMedia());
+            // MediaDAO.supprimer(cnx, diffuseur.getMedia());
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Echec supprimer diffuseur");
