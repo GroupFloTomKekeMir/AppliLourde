@@ -73,8 +73,6 @@ public class modifierMusique extends javax.swing.JFrame {
         boutonEnregistrer = new javax.swing.JButton();
         UtilisateurBox = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        date_ajout_box = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         lien_yt_box = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -82,7 +80,7 @@ public class modifierMusique extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Ajouter musique");
+        setTitle("Modifier musique");
 
         jLabel1.setText("Titre");
 
@@ -104,10 +102,6 @@ public class modifierMusique extends javax.swing.JFrame {
         });
 
         jLabel5.setText("Artiste");
-
-        jLabel2.setText("Date d'ajout");
-
-        date_ajout_box.setText("aaaa-mm-jj");
 
         jLabel6.setText("lien YT");
 
@@ -131,27 +125,24 @@ public class modifierMusique extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(69, 69, 69)
-                        .addComponent(titreBox))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addComponent(jLabel6))
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5))
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(UtilisateurBox, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(genreBox, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(date_ajout_box, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(descriptionBox, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-                            .addComponent(lien_yt_box))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(69, 69, 69)
+                            .addComponent(titreBox))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel5))
+                            .addGap(38, 38, 38)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(UtilisateurBox, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(genreBox, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(descriptionBox, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+                                .addComponent(lien_yt_box))))
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
@@ -179,15 +170,11 @@ public class modifierMusique extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(genreBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(date_ajout_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(lien_yt_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(UtilisateurBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -218,15 +205,18 @@ public class modifierMusique extends javax.swing.JFrame {
         String description = descriptionBox.getText();
         String genre = genreBox.getText();
         String lien_yt = lien_yt_box.getText();
-        String date_ajout = date_ajout_box.getText();
+        String date_ajout = "yyyy-MM-dd";
+        java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat(date_ajout);
+        java.util.Date date = new java.util.Date();
+        date_ajout = formater.format(date);
 
         MusiqueDAO musiqueDAO = new MusiqueDAO();
         Musique musique = MusiqueDAO.trouver(cnx, id);
         UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
 
         if (musique != null) {
-            Utilisateur utilisateur = UtilisateurDAO.trouver(cnx,artiste);
-            musique = new Musique(id,titre, description, genre, lien_yt, date_ajout,utilisateur);
+            Utilisateur utilisateur = UtilisateurDAO.trouver(cnx, artiste);
+            musique = new Musique(id, titre, description, genre, lien_yt, date_ajout, utilisateur);
 
             try {
                 String message = MusiqueDAO.modifier(cnx, musique);
@@ -270,7 +260,7 @@ public class modifierMusique extends javax.swing.JFrame {
         titreBox.setText(titre);
         descriptionBox.setText(description);
         genreBox.setText(genre);
-        date_ajout_box.setText(lien_yt);
+        
         lien_yt_box.setText(date);
         UtilisateurBox.setSelectedItem(artiste);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -314,12 +304,10 @@ public class modifierMusique extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox UtilisateurBox;
     private javax.swing.JButton boutonEnregistrer;
-    private javax.swing.JTextField date_ajout_box;
     private javax.swing.JTextField descriptionBox;
     private javax.swing.JTextField genreBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

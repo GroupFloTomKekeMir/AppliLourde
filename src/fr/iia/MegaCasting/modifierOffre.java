@@ -65,7 +65,7 @@ public class modifierOffre extends javax.swing.JFrame {
 
         for (Offre offre : offres) {
             // listModel.addElement(offre.getTitre());
-            listModel.addElement(offre.getId() + "-" + offre.getReference());
+            listModel.addElement(offre.getId() + "-" + offre.getTitre());
         }
 
         modifier_liste.setModel(listModel);
